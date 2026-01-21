@@ -1,0 +1,2 @@
+# bug_test_inventory_stock_management
+bug_test_inventory_stock_management
