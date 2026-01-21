@@ -124,23 +124,6 @@
       const p = products[i];
 
       const tr = document.createElement("tr");
-
-      tr.innerHTML = `
-        <td>${p.id}</td>
-        <td>${p.name}</td>
-        <td>${p.desc}</td>
-        <td>${p.qty}</td>
-        <td>${p.category}</td>
-        <td>${p.purchase}</td>
-        <td>${p.expiry}</td>
-        <td>
-          <button onclick="inc(${i})">+</button>
-          <button onclick="dec(${i})">-</button>
-          <button onclick="remove(${i})">Delete</button>
-        </td>
-      `;
-
-      tbody.appendChild(tr);
     }
   }
 
