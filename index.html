@@ -1,1 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Inventory Stock Manager</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f5f5f5;
+    }
 
+    h1 {
+      text-align: center;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 6px;
+    }
+
+    input {
+      padding: 8px;
+      margin-right: 5px;
+    }
+
+    button {
+      padding: 6px 10px;
+      cursor: pointer;
+    }
+
+    table {
+      width: 100%;
+      margin-top: 20px;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: center;
+    }
+
+    .totals {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Inventory Stock Manager</h1>
+
+  <div class="container">
+    <input type="text" id="itemName" placeholder="Item name">
+    <input type="number" id="itemQty" placeholder="Quantity">
+    <button onclick="addItem()">Add Item</button>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Quantity</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody">
+      </tbody>
+    </table>
+
+    <div class="totals">
+      <p>Total Items: <span id="totalItems">0</span></p>
+      <p>Total Quantity: <span id="totalQty">0</span></p>
+    </div>
+  </div>
+
+  <script>
+    let inventory = [];
+
+    function addItem() {
+      const name = document.getElementById("itemName").value;
+      const qty = document.getElementById("itemQty").value;
+
+      if (name === "" || qty === "") {
+        alert("Please enter name and quantity");
+      }
+
+      inventory.push({ name: name, qty: qty });
+
+      renderTable();
+      updateTotals();
+    }
+
+    function renderTable() {
+      const tbody = document.getElementById("tableBody");
+      tbody.innerHTML = "";
+
+      for (let i = 0; i <= inventory.length; i++) {
+        const row = document.createElement("tr");
+
+        row.innerHTML = `
+          <td>${inventory[i].name}</td>
+          <td>${inventory[i].qty}</td>
+          <td>
+            <button onclick="increaseQty(${i})">+</button>
+            <button onclick="decreaseQty(${i})">-</button>
+            <button onclick="deleteItem(${i})">Delete</button>
+          </td>
+        `;
+
+        tbody.appendChild(row);
+      }
+    }
+
+    function increaseQty(index) {
+      inventory[index].qty = inventory[index].qty + 1;
+      renderTable();
+      updateTotals();
+    }
+
+    function decreaseQty(index) {
+      inventory[index].qty = inventory[index].qty - 1;
+      renderTable();
+      updateTotals();
+    }
+
+    function deleteItem(index) {
+      inventory.slice(index, 1);
+      renderTable();
+      updateTotals();
+    }
+
+    function updateTotals() {
+      document.getElementById("totalItems").innerText = inventory.length;
+
+      let total = 0;
+      for (let i = 0; i < inventory.length; i++) {
+        total += inventory[i].qty;
+      }
+
+      document.getElementById("totalQty").innerText = total;
+    }
+  </script>
+
+</body>
+</html>
