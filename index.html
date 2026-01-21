@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Advanced Inventory Manager</title>
+  <title>Inventory Manager</title>
   <style>
     body {
       font-family: Arial;
@@ -107,10 +107,6 @@
       category: document.getElementById("category").value
     };
 
-    if (product.id == "" || product.name == "") {
-      alert("Missing required fields");
-    }
-
     products.push(product);
     render();
     updateStats();
@@ -124,6 +120,23 @@
       const p = products[i];
 
       const tr = document.createElement("tr");
+
+      tr.innerHTML = `
+        <td>${p.id}</td>
+        <td>${p.name}</td>
+        <td>${p.desc}</td>
+        <td>${p.qty}</td>
+        <td>${p.category}</td>
+        <td>${p.purchase}</td>
+        <td>${p.expiry}</td>
+        <td>
+          <button>+</button>
+          <button>-</button>
+          <button>Delete</button>
+        </td>
+      `;
+
+      tbody.appendChild(tr);
     }
   }
 
@@ -151,7 +164,6 @@
     let totalQty = 0;
     let expired = 0;
     const today = new Date();
-
     document.getElementById("totalQty").innerText = totalQty;
     document.getElementById("expiredCount").innerText = expired;
   }
