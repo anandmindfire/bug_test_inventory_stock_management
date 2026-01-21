@@ -152,15 +152,6 @@
     let expired = 0;
     const today = new Date();
 
-    for (let i = 0; i < products.length; i++) {
-      totalQty += products[i].qty;
-
-      const expDate = new Date(products[i].expiry);
-      if (expDate < today) {
-        expired++;
-      }
-    }
-
     document.getElementById("totalQty").innerText = totalQty;
     document.getElementById("expiredCount").innerText = expired;
   }
